@@ -33,6 +33,6 @@ function RandomWord(chars){
 // var result = word.randomize(3);
 // console.log(result);
 
-// var word = new RandomWord({a:'a',b:'b',c:'c'});
-// var result = word.randomize(3);
-// console.log(result);
+var word = new RandomWord(['a','b','c']);
+var result = word.randomize("a");
+console.log(result);
