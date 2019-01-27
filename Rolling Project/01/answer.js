@@ -12,7 +12,7 @@ function User(userName,password,age) {
 };
 
 function Users(){
-    this.allUsers = new Array();// Array of users
+    this.allUsers = new Array();
     this.createUser = function(userName, password, age)
     {
 
@@ -89,57 +89,133 @@ users.addUser(user1);
 users.addUser(user2);
 users.addUser(user3);
 users.addUser(user4);
-console.log(users.getAllUserNames());
-console.log(users);
-
-users.updateUser("Michal",4321,40);
-console.log(users);
-
-users.deleteUser("Uriel");
-console.log(users.getAllUserNames());
+//console.log(users.getAllUserNames());
+//console.log(users);
 
 
-// function Group(groupName,users){ 
-//     this.groupName = groupName;
-//     this.users = users;
-// };
+// users.updateUser("Michal",4321,40);
+// console.log(users);
 
-// function Groups(){
-//     this.allGroups = new Array();// Array of groups
+// users.deleteUser("Uriel");
+// console.log(users.getAllUserNames());
 
-//     this.createGroup = function(groupName, usersArr)
-//     {
-//         if( !groupName || (groupName in this.getAllGroupNames()) )
-//             return;
-//         return new Group(groupName,usersArr);
-//     };
 
-//     this.addGroup = function(groupToAdd)
-//     {
-//         if(!groupToAdd || !(groupToAdd.name in this.getAllGroupNames()))
-//             return;
-//         var groupName = groupToAdd.groupName;
-//         if(this.getAllGroupNames.some(item=> item === groupName)){
-//             return;
-//         }
-//         this.allGroups.push(groupToAdd);
-//     };
+function Group(groupName,users,subGroups){ 
+    this.groupName = groupName;
+    this.users = users;// Array of users
+    this.subGroups = subGroups;// Array of subGroups
 
-//     this.deleteGroup = function(groupName){
-//         var index = this.getIndexFromArray(groupName)
-//         if(!groupName  || index ===-1 || !(groupName in this.getAllGroupsNames()))
-//             return;
-//         delete this.allGroups.splice(index,1);
-//     };
+    this.createGroup = function(groupName,users,subGroups) {
+        // if( this.users !== null){
+        //     console.log("Users array of crator group is not empty!");
+        //     return;
+        // }
+        // if( !groupName || (groupName in this.getAllGroupNames()) ){
+        //     console.log("This name alraedy exists!");
+        //     return;
+        // }
+        return new Group(groupName,users,subGroups);
+    }
 
-//     this.getAllGroupNames = function()
-//     {
-//         var groupNames = new Array();
-//         this.allGroups.forEach(element => {
-//             groupNames.push(element.name) 
-//         });
-//         return groupNames;
-//     };
+    this.addGroup = function(groupToAdd)
+    {
+        if( this.users !== null){
+            console.log("Users array of creator group is not empty!");
+            return;
+        }
+        var groupName = groupToAdd.groupName;
+        if(this.isGroupNameExists(groupName)){
+            console.log("This name already exists!");
+            return;
+        }
+        if(this.subGroups === null){
+            this.subGroups = new Array();
+        }
+        this.subGroups.push(groupToAdd);
+    };
+
+    this.isGroupNameExists = function(groupName){
+        allGroupNames = this.getAllGroupNames().split(', ');
+        return allGroupNames.some(item=> item === groupName);
+    };
+
+    this.deleteGroup = function(groupName){
+        var group = getGroup(groupName);
+        group = null;
+    };
+
+    this.getGroup = function(groupName){
+        if(!groupName){
+            return;
+        }
+        if(this.groupName === groupName){
+            return this;
+        }
+        if(this.subGroups !== null){
+            for(var i=0;i<this.subGroups.length;i++){
+                element = this.subGroups[i];
+                var group = element.getGroup(groupName)
+                if(group !== undefined){
+                    return group;
+                }
+            }
+        }
+    };
+
+    this.getAllGroupNames = function()
+    {
+        if(this.subGroups === null){
+            return this.groupName;
+        }
+        var groupNames = this.groupName;
+        if(this.subGroups !== null){
+            for(var i=0;i<this.subGroups.length;i++){
+                element = this.subGroups[i];
+                groupNames += ', ' + element.getAllGroupNames();
+            }
+        }
+        return groupNames;
+    };
+
+
+};
+
+// var group111 = new Group("Group111",[user1,user2],null);
+// var group112 = new Group("Group112",[user3,user4],null);
+
+// var group121 = new Group("Group121",[user1,user2],null);
+// var group122 = new Group("Group122",[user3,user4],null);
+
+//  var group11 =  new Group("Group11",null,[group111,group112]);
+//  var group12 =  new Group("Group12",null,[group121,group122]);
+
+//  var group1 = new Group("Group1",null,[group11,group12]);
+
+
+var group1 = new Group("Group1",null,null);
+var group11 = group1.createGroup("Group11",null,null);
+group1.addGroup(group11);
+var group12 = group1.createGroup("Group12",null,null);
+group1.addGroup(group12);
+
+var group111 = group11.createGroup("Group111",[user1,user2],null);
+group11.addGroup(group111);
+
+var group112 = group11.createGroup("Group112",[user3,user4],null);
+group11.addGroup(group112);
+
+var group121 = group12.createGroup("Group121",[user1,user2],null);
+group12.addGroup(group121);
+
+var group122 = group12.createGroup("Group122",[user3,user4],null);
+group12.addGroup(group122);
+
+group11.getAllGroupNames();
+console.log(group1.getAllGroupNames().split(', '));
+var e = group1.getGroup("Group121");
+console.log(e);
+
+
 
 //     this.getGroupIndex = function(groupName){
 //         this.allGroups.forEach(element,index => {
