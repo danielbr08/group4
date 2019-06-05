@@ -26,18 +26,8 @@ export class MoviesService {
     this.detaiulsUrl = `${this.baseUrl}&i=${imdbId}`;
   }
 
-  // getSearchUrl(){
-  //   return this.searchUrl;
-  // }
-
-  // getDetaiulsUrl(){
-  //   return this.detaiulsUrl;
-  // }
-
   searchMovie(keyWord: string, pageNumber: number){
-    console.log("service: ",keyWord);
     this.setSearchUrl(keyWord,pageNumber);
-    console.log(this.searchUrl,pageNumber);
     return fetch(this.searchUrl).then(stream=>stream.json());
   }
 

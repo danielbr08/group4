@@ -56,7 +56,6 @@ setMovies(data){
 
   onLoadMore(){
     this.moviesService.searchMovie(this.keyWord,this.pageNumber).then(data=>{
-      console.log(data);
       if(data.Response === "True"){
         data.Search.length ? this.setMovies(data.Search) : this.disabledLoadMore();
       }

@@ -17,8 +17,6 @@ details: string[];
 
   ngOnInit() {
     this.imdbLink = `https://www.imdb.com/title/${this.movie.imdbID}`;
-
-    console.log("this.movie:",this.movie.imdbID,this.imdbLink);
   }
 
   onImgClicked(){
