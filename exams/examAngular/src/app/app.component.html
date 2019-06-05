@@ -1,0 +1,8 @@
+<form (submit)="onSubmit($event,query.value)" id="form">
+  <input type="text" placeholder="search movie" minlength="3" #query>
+  <button>Search</button>
+</form>
+<div id="result" *ngFor="let movie of movies">
+    <app-movie [movie]="movie"></app-movie>
+</div>
+<button *ngIf="movies.length > 0" (click)="onLoadMore()" [disabled]="!hasMore" #loadMore>Load More...</button>
