@@ -1,0 +1,14 @@
+<div class="book">
+  <h3 (click)="onTitleClicked()" class="title">Title: {{book.title}}</h3>
+  <h4 class="author">Authors: {{authors}}</h4>
+  <!-- <span id="authors" *ngFor="let author of book.authors"> {{author}} </span> -->
+  <h5><a class="link" [href]="book.previewLink" target="_blank">Book Page</a></h5>
+  <div class="details">
+    <img [src]="thumbnail" alt="">
+    <div *ngIf="isTitleClicked">
+      <h5>Publisher: {{ publisher }}</h5>   
+      <h5>PublishedDate: {{ publishedDate }}</h5> 
+      <h4>Description:</h4> <h6>{{ description }}</h6>
+    </div>
+  </div>
+</div>

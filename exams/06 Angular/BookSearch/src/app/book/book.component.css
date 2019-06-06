@@ -1,0 +1,7 @@
+.book{
+    border: blue solid 4px;
+}
+
+.book .title{
+    cursor: pointer;
+}
