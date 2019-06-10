@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Ibook } from './book.model';
 
 @Injectable({
   providedIn: 'root'

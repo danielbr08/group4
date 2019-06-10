@@ -15,10 +15,7 @@ export class AppComponent {
   bookKey: string;
 
   constructor(private booksService: BooksService) {
-    this.books = [];
-    this.hasMore = false;
-    this.bookKey = '';
-    this.indexNumber = 0;
+    this.resetValues();
   }
 
   onSubmit(e, bookKey) {
@@ -51,7 +48,7 @@ export class AppComponent {
     this.books = [];
     this.hasMore = false;
     this.bookKey = '';
-    //this.indexNumber = 0;
+    this.indexNumber = 0;
   }
 
   onLoadMore() {
