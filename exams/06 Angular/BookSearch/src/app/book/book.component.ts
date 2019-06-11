@@ -33,10 +33,10 @@ isTitleClicked: boolean;
 
   onTitleClicked(){
     this.isTitleClicked = true;    
-    this.publisher = this.book.publisher;
-    this.publishedDate = this.book.publishedDate;
-    this.description = this.book.description;    
-    this.thumbnail = this.book.imageLinks.thumbnail;
+    this.publisher = this.book["publisher"];
+    this.publishedDate = this.book["publishedDate"];
+    this.description = this.book["description"];    
+    this.thumbnail = this.book["imageLinks"]["thumbnail"];
   }
 
 }

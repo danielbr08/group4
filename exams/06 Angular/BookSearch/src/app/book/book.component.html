@@ -1,14 +1,14 @@
 <div class="book">
-  <h3 (click)="onTitleClicked()" class="title">Title: {{book.title}}</h3>
-  <h4 class="author">Authors: {{authors}}</h4>
+  <h2 (click)="onTitleClicked()" class="title">Title: {{book.title}}</h2>
+  <h2 class="author">Authors: {{authors}}</h2>
   <!-- <span id="authors" *ngFor="let author of book.authors"> {{author}} </span> -->
-  <h5><a class="link" [href]="book.previewLink" target="_blank">Book Page</a></h5>
+  <h4><a class="link" [href]="book.previewLink" target="_blank">Book Page</a></h4>
   <div class="details">
     <img [src]="thumbnail" alt="">
     <div *ngIf="isTitleClicked">
-      <h5>Publisher: {{ publisher }}</h5>   
-      <h5>PublishedDate: {{ publishedDate }}</h5> 
-      <h4>Description:</h4> <h6>{{ description }}</h6>
+      <h3>Publisher: {{ publisher }}</h3>   
+      <h3>PublishedDate: {{ publishedDate }}</h3> 
+      <h3>Description:</h3> <h4>{{ description }}</h4>
     </div>
   </div>
 </div>
