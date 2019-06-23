@@ -1,0 +1,54 @@
+<div class="wrapper">
+  <form #form="ngForm" (submit)=onSubmit(form)>
+    <h2 *ngIf="submit">{{questionsService.correctAnswers}} of {{questionsService.questions.length}}</h2>
+    <div id="userForm" *ngIf="isTopTen">
+      <form action="" (submit)="sendScore(name.value)">
+        <input type="text" placeholder="Enter your name" #name>
+        <button>Submit</button>
+      </form>
+    </div>
+
+    <div id="scoresTable" *ngIf="isShowResult" *ngFor="let s of scores">
+      <span>{{s.name}}</span> <span>{{s.score}}</span>      
+    </div>
+    <ul>
+      <li *ngFor="let question of questionsService.questions; index as i">
+        <app-question>
+          <div>
+            <h3>{{question.question}}</h3>
+            <div *ngIf="submit && questionsService.isCorrectAnswer(optElem ,question.question);else checkWrong">
+              <p class="answerDiv true">
+                Correct Answer!
+              </p>
+            </div>
+            <ng-template #checkWrong>
+              <div *ngIf="submit && !(questionsService.isCorrectAnswer(optElem,question.question))">
+                <p class="answerDiv wrong">
+                  The Answer Is {{question.answer}}!
+                </p>
+              </div>
+            </ng-template>
+            <div class="options">
+              <input type='radio' id="q-{{i+1}}-a-A" ngModel #optElem="ngModel" name='q{{i+1}}'
+                value='{{question.option1}}' required />
+              <label for="q-{{i+1}}-a-A">{{question.option1}} </label>
+            </div>
+            <div class="options">
+              <input type='radio' id="q-{{i+1}}-a-B" ngModel name='q{{i+1}}' value='{{question.option2}}' />
+              <label for="q-{{i+1}}-a-B">{{question.option2}} </label>
+            </div>
+            <div class="options">
+              <input type='radio' id="q-{{i+1}}-a-C" ngModel name='q{{i+1}}' value='{{question.option3}}' />
+              <label for="q-{{i+1}}-a-C">{{question.option3}}</label>
+            </div>
+            <div class="options">
+              <input type='radio' id="q-{{i+1}}-a-D" ngModel name='q{{i+1}}' value='{{question.option4}}' />
+              <label for="q-{{i+1}}-a-D">{{question.option4}}</label>
+            </div>
+          </div>
+        </app-question>
+      </li>
+    </ul>
+    <input type='submit' name='submit' [disabled]="!form.form.valid" value='Submit' />
+  </form>
+</div>
