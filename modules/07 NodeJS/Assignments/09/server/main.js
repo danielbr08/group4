@@ -76,20 +76,18 @@ function compare(a, b) {
 
 
 app.post('/song', (req, res) => {
-
     try {
         const id = Math.floor(Math.random() * 100000);
         const { title, singer, words } = req.body;
-        const newSong = { id, title, singer, words }
-        data.songs.push(newSong);
+        const newSong = { id, title, singer, words };
+        data.songs = addSong(data.songs,newSong);
         res.status(200);
         res.json(data.songs);
     }
     catch (ex) {
         res.status(500);
     }
-
-})
+});
 
 app.delete('/song/:id', (req, res) => {
 
@@ -108,14 +106,11 @@ app.delete('/song/:id', (req, res) => {
 
 
 function getIndex(arr, identifyer) {
-
     return arr.findIndex(s => s.id === identifyer);
-
 }
 
 
 app.put('/song/:id', (req, res) => {
-
     try {
         const { id } = req.params;
         const { title, singer, words } = req.body;
